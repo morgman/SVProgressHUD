@@ -166,8 +166,8 @@ static const CGFloat SVProgressHUDParallaxDepthPoints = 10;
     [[self sharedView] showImage:image status:string duration:displayInterval];
 }
 
-+ (void)showTapToDismissImage:(UIImage *)image status:(NSString *)string {
-    [[self sharedView] showImage:image status:string duration:-1];
++ (void)showTapToDismissFailureWithStatus:(NSString *)string {
+    [[self sharedView] showImage:SVProgressHUDErrorImage status:string duration:-1];
 }
 
 
