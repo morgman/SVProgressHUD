@@ -166,6 +166,10 @@ static const CGFloat SVProgressHUDParallaxDepthPoints = 10;
     [[self sharedView] showImage:image status:string duration:displayInterval];
 }
 
++ (void)showTapToDismissImage:(UIImage *)image status:(NSString *)string {
+    [[self sharedView] showImage:image status:string duration:-1];
+}
+
 
 #pragma mark - Dismiss Methods
 
@@ -617,8 +621,10 @@ static const CGFloat SVProgressHUDParallaxDepthPoints = 10;
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, nil);
     UIAccessibilityPostNotification(UIAccessibilityAnnouncementNotification, string);
     
-    self.fadeOutTimer = [NSTimer timerWithTimeInterval:duration target:self selector:@selector(dismiss) userInfo:nil repeats:NO];
-    [[NSRunLoop mainRunLoop] addTimer:self.fadeOutTimer forMode:NSRunLoopCommonModes];
+    if (duration >= 0) {
+        self.fadeOutTimer = [NSTimer timerWithTimeInterval:duration target:self selector:@selector(dismiss) userInfo:nil repeats:NO];
+        [[NSRunLoop mainRunLoop] addTimer:self.fadeOutTimer forMode:NSRunLoopCommonModes];
+    }
 }
 
 - (void)dismiss {
